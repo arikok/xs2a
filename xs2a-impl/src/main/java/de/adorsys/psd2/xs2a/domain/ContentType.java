@@ -18,11 +18,13 @@ package de.adorsys.psd2.xs2a.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public enum ContentType {
 
     XML("application/xml"),
