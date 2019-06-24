@@ -4,6 +4,7 @@
 * Bugfix: Fix the payment ID transfer flow during payment cancellation
 * Bugfix: Account reference is properly validated during confirmation of funds
 * Bugfix: BankOffered consent after authorisation should allow accesses according to chosen by PSU
+* Bugfix: Read or update info by another TPP
 
 == Bugfix: Fix the payment ID transfer flow during payment cancellation
 From now on, response to the Payment Cancellation Request (`DELETE /v1/{payment-service}/{payment-product}/{paymentId}`)
@@ -23,3 +24,12 @@ Based on new incoming data of accesses Consent changes `AisConsentRequestType` f
  - DEDICATED_ACCOUNTS
 
 And when TPP requests to `Read Account Data` with this Consent ID xs2a will respond according to updated authorised accesses.
+
+== Bugfix: Read or update info by another TPP
+
+From now on, while sending HTTP requests to the XS2A for all components (AIS, PIS or PIIS)
+where TPP info from certificate is not correct validators will return an error with HTTP code 400 and message 'CONSENT_UNKNOWN'
+
+== Feature: Requests with custom 'tpp-qwac-certificate' header
+
+From now on, all HTTP requests to the XS2A could contain custom 'tpp-qwac-certificate' header even if 'mockspi' profile is used
