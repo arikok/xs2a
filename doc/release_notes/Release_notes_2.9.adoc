@@ -4,6 +4,7 @@
 * Bugfix: Fix the payment ID transfer flow during payment cancellation
 * Bugfix: Account reference is properly validated during confirmation of funds
 * Bugfix: BankOffered consent after authorisation should allow accesses according to chosen by PSU
+* Bugfix: Fix saving of tpp redirect URIs after payment cancellation
 
 == Bugfix: Fix the payment ID transfer flow during payment cancellation
 From now on, response to the Payment Cancellation Request (`DELETE /v1/{payment-service}/{payment-product}/{paymentId}`)
@@ -23,3 +24,6 @@ Based on new incoming data of accesses Consent changes `AisConsentRequestType` f
  - DEDICATED_ACCOUNTS
 
 And when TPP requests to `Read Account Data` with this Consent ID xs2a will respond according to updated authorised accesses.
+
+== Bugfix: Fix saving of tpp redirect URIs after payment cancellation
+Headers `TPP-Redirect-URI` and `TPP-Nok-Redirect-URI` for Payment Cancellation Request (`DELETE /v1/{payment_service}/{payment_product}/{payment_id}`) are stored in `tpp_info` table.

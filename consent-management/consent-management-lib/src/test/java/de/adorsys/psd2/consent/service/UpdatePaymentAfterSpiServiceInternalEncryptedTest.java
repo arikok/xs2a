@@ -16,7 +16,7 @@
 
 package de.adorsys.psd2.consent.service;
 
-import de.adorsys.psd2.consent.api.service.UpdatePaymentStatusAfterSpiService;
+import de.adorsys.psd2.consent.api.service.UpdatePaymentAfterSpiService;
 import de.adorsys.psd2.consent.service.security.SecurityDataService;
 import de.adorsys.psd2.xs2a.core.pis.TransactionStatus;
 import org.junit.Before;
@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UpdatePaymentStatusAfterSpiServiceInternalEncryptedTest {
+public class UpdatePaymentAfterSpiServiceInternalEncryptedTest {
     private static final String ENCRYPTED_PAYMENT_ID = "encrypted payment id";
     private static final String WRONG_ENCRYPTED_PAYMENT_ID = "wrong encrypted payment id";
     private static final String UNDECRYPTABLE_PAYMENT_ID = "undecryptable payment id";
@@ -41,9 +41,9 @@ public class UpdatePaymentStatusAfterSpiServiceInternalEncryptedTest {
     private static final String WRONG_DECRYPTED_PAYMENT_ID = "386d670d-4323-43ba-a953-8d0c97d9deca";
 
     @InjectMocks
-    private UpdatePaymentStatusAfterSpiServiceInternalEncrypted updatePaymentStatusAfterSpiServiceInternalEncrypted;
+    private UpdatePaymentAfterSpiServiceInternalEncrypted updatePaymentStatusAfterSpiServiceInternalEncrypted;
     @Mock
-    private UpdatePaymentStatusAfterSpiService updatePaymentStatusAfterSpiService;
+    private UpdatePaymentAfterSpiService updatePaymentStatusAfterSpiService;
     @Mock
     private SecurityDataService securityDataService;
 
