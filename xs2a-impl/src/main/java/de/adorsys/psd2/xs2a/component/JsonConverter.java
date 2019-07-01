@@ -39,7 +39,7 @@ public class JsonConverter {
         try {
             return Optional.ofNullable(objectMapper.writeValueAsString(object));
         } catch (JsonProcessingException e) {
-            log.info("Can't convert object to json: {}", e.getMessage(), e);
+            log.info("Can't convert object to json: {}", e.getMessage());
         }
         return Optional.empty();
     }
@@ -48,7 +48,7 @@ public class JsonConverter {
         try {
             return Optional.ofNullable(objectMapper.readValue(json, target));
         } catch (IOException e) {
-            log.info("Can't convert json to object: {}", e.getMessage(), e);
+            log.info("Can't convert json to object: {}", e.getMessage());
         }
         return Optional.empty();
     }
@@ -57,7 +57,7 @@ public class JsonConverter {
         try {
             return Optional.ofNullable(objectMapper.readValue(IOUtils.toString(bytes, "UTF-8"), valueTypeRef));
         } catch (IOException e) {
-            log.info("Can't convert json to object: {}", e.getMessage(), e);
+            log.info("Can't convert json to object: {}", e.getMessage());
         }
         return Optional.empty();
     }
@@ -85,7 +85,7 @@ public class JsonConverter {
             return Optional.ofNullable(value);
 
         } catch (IOException e) {
-            log.info("Couldn't extract field {} from json: {}", fieldName, e.getMessage(), e);
+            log.info("Couldn't extract field {} from json: {}", fieldName, e.getMessage());
         }
 
         return Optional.empty();

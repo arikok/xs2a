@@ -139,10 +139,11 @@ public class AccountService {
         aisConsentDataService.updateAspspConsentData(spiResponse.getAspspConsentData());
 
         if (spiResponse.hasError()) {
-            log.info("X-Request-ID: [{}], Consent-ID: [{}]. Get account list failed: couldn't get accounts from CMS.",
-                     requestProviderService.getRequestId(), consentId);
+            ErrorHolder errorHolder = spiErrorMapper.mapToErrorHolder(spiResponse, ServiceType.AIS);
+            log.info("X-Request-ID: [{}], Consent-ID: [{}]. Get account list failed: couldn't get accounts. Error msg: [{}]",
+                     requestProviderService.getRequestId(), consentId, errorHolder);
             return ResponseObject.<Xs2aAccountListHolder>builder()
-                       .fail(new MessageError(spiErrorMapper.mapToErrorHolder(spiResponse, ServiceType.AIS)))
+                       .fail(new MessageError(errorHolder))
                        .build();
         }
 
@@ -217,10 +218,11 @@ public class AccountService {
         aisConsentDataService.updateAspspConsentData(spiResponse.getAspspConsentData());
 
         if (spiResponse.hasError()) {
-            log.info("X-Request-ID: [{}], Account-ID [{}], Consent-ID: [{}]. Get account details failed: couldn't get account details from CMS.",
-                     requestProviderService.getRequestId(), accountId, consentId);
+            ErrorHolder errorHolder = spiErrorMapper.mapToErrorHolder(spiResponse, ServiceType.AIS);
+            log.info("X-Request-ID: [{}], Account-ID [{}], Consent-ID: [{}]. Get account details failed: couldn't get account details. Error msg: [{}]",
+                     requestProviderService.getRequestId(), accountId, consentId, errorHolder);
             return ResponseObject.<Xs2aAccountDetailsHolder>builder()
-                       .fail(spiErrorMapper.mapToErrorHolder(spiResponse, ServiceType.AIS))
+                       .fail(errorHolder)
                        .build();
         }
 

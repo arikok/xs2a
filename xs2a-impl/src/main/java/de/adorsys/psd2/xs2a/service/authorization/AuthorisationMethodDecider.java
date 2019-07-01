@@ -42,7 +42,7 @@ public class AuthorisationMethodDecider {
         boolean isExplicit = multilevelScaRequired
                                  || tppExplicitAuthorisationPreferred && aspspProfileService.isSigningBasketSupported();
 
-        log.info("X-Request-ID: [{}]. {} authorisation method choosen",
+        log.info("X-Request-ID: [{}]. {} authorisation method chosen",
                  requestProviderService.getRequestId(), isExplicit ? "EXPLICIT" : "IMPLICIT");
         return isExplicit;
     }
