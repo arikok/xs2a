@@ -70,7 +70,6 @@ public class PiisConsentValidationTest {
         when(piisTppInfoValidator.validateTpp(buildConsent().getTppInfo()))
             .thenReturn(ValidationResult.valid());
 
-
         when(requestProviderService.getRequestId())
             .thenReturn(X_REQUEST_ID);
     }
