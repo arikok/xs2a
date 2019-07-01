@@ -11,6 +11,7 @@
 * Bugfix: Global consent applies on all PSD2 related account information requests
 * Bugfix: List of Available Accounts Consent should apply only on Account List
 * Bugfix: Fixed a typo in `preceding`
+* Extend logging for XS2A
 
 == Update version of jackson-databind to 2.9.9
 
@@ -59,3 +60,11 @@ Consent with `availableAccounts` attribute has access to accounts without balanc
 
 Fixed a typo in the word `preceding` for the whole project.
 
+== Extend logging for XS2A
+Logs for XS2A `Authorisation`, `AIS`, `PIS`, `PIIS` and `Validation` services were extended with
+covering so-called “unhappy paths”.
+Logs provides important IDs, but never log request data like payment data or consent accounts.
+For filtering through specific request each log were specified by `X-Request-ID` parameter.
+Logging is used `INFO` level. You can find other settings at `logback-spring.xml`.
+Logs are printed to Console and stored to main project directory “logs” folder.
+Each day are stored separately at file like `2019-06-19.0.log` with 10Mb max size..
