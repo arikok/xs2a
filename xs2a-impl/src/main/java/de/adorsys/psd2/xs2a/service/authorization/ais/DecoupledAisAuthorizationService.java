@@ -56,7 +56,7 @@ public class DecoupledAisAuthorizationService implements AisAuthorizationService
     public Optional<CreateConsentAuthorizationResponse> createConsentAuthorization(PsuIdData psuData, String consentId) {
         Optional<AccountConsent> accountConsentOptional = aisConsentService.getAccountConsentById(consentId);
         if (!accountConsentOptional.isPresent()) {
-            log.info("X-Request-ID: [{}], Consent-ID [{}]. Create consent authorization has failed. Consent not found by ID.",
+            log.info("X-Request-ID: [{}], Consent-ID [{}]. Create consent authorisation has failed. Consent not found by ID.",
                      requestProviderService.getRequestId(), consentId);
             return Optional.empty();
         }
@@ -91,7 +91,7 @@ public class DecoupledAisAuthorizationService implements AisAuthorizationService
         UpdateConsentPsuDataResponse response = service.apply(updatePsuData);
 
         if (response.hasError()) {
-            log.warn("X-Request-ID: [{}], Consent-ID [{}], Authentication-ID [{}], PSU-ID [{}]. Update consent authorization has failed. Error msg: {}.",
+            log.warn("X-Request-ID: [{}], Consent-ID [{}], Authentication-ID [{}], PSU-ID [{}]. Update consent authorisation has failed. Error msg: {}.",
                      requestProviderService.getRequestId(), updatePsuData.getConsentId(), updatePsuData.getAuthorizationId(), updatePsuData.getPsuData().getPsuId(), response.getMessageError());
         } else {
             aisConsentService.updateConsentAuthorization(aisConsentMapper.mapToSpiUpdateConsentPsuDataReq(response, updatePsuData));

@@ -93,14 +93,14 @@ public class QwacCertificateFilter extends AbstractXs2aFilter {
                 tppInfo.setTppRoles(xs2aTppRoles);
 
                 if (!tppRoleValidationService.hasAccess(tppInfo, request)) {
-                    log.info("X-Request-ID: [{}], Access forbidden for TPP with authorisation number: {}", requestProviderService.getRequestId(), tppCertificateData.getPspAuthorisationNumber());
+                    log.info("X-Request-ID: [{}], Access forbidden for TPP with authorisation number: [{}]", requestProviderService.getRequestId(), tppCertificateData.getPspAuthorisationNumber());
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "You don't have access to this resource");
                     return;
                 }
 
                 tppInfoHolder.setTppInfo(tppInfo);
             } catch (CertificateValidationException e) {
-                log.info("X-Request-ID: [{}], TPP unauthorized because CertificateValidationException: {}", requestProviderService.getRequestId(), e.getMessage());
+                log.info("X-Request-ID: [{}], TPP unauthorised because CertificateValidationException: {}", requestProviderService.getRequestId(), e.getMessage());
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
                 return;
             }

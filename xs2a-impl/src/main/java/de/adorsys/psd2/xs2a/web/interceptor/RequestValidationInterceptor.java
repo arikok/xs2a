@@ -70,7 +70,7 @@ public class RequestValidationInterceptor extends HandlerInterceptorAdapter {
 
             if (!initialMessageError.getTppMessages().isEmpty()) {
                 // Last part of all validations: if there is at least one error - we build response with HTTP code 400.
-                log.warn("X-Request-ID: [{}]. Validation failed. Error msg: {}.",
+                log.warn("X-Request-ID: [{}]. Validation of incoming request failed. Error msg: [{}]",
                          requestProviderService.getRequestId(), initialMessageError);
                 errorBuildingService.buildErrorResponse(response, initialMessageError);
                 return false;

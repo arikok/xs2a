@@ -402,7 +402,7 @@ public class ConsentService {
         Optional<AccountConsent> accountConsent = aisConsentService.getAccountConsentById(consentId);
 
         if (!accountConsent.isPresent()) {
-            log.info("X-Request-ID: [{}], Consent-ID: [{}]. Create сonsent authorization with response failed: consent not found by id",
+            log.info("X-Request-ID: [{}], Consent-ID: [{}]. Create сonsent authorisation with response failed: consent not found by id",
                      requestProviderService.getRequestId(), consentId);
             return ResponseObject.<CreateConsentAuthorizationResponse>builder()
                        .fail(AIS_403, of(CONSENT_UNKNOWN_403)).build();
@@ -410,7 +410,7 @@ public class ConsentService {
 
         ValidationResult validationResult = createConsentAuthorisationValidator.validate(new CommonConsentObject(accountConsent.get()));
         if (validationResult.isNotValid()) {
-            log.info("X-Request-ID: [{}], Consent-ID: [{}], Authorization-ID [{}]. Create сonsent authorization with response validation failed: {}",
+            log.info("X-Request-ID: [{}], Consent-ID: [{}], Authorisation-ID [{}]. Create сonsent authorisation with response validation failed: {}",
                      requestProviderService.getRequestId(), consentId, validationResult.getMessageError());
             return ResponseObject.<CreateConsentAuthorizationResponse>builder()
                        .fail(validationResult.getMessageError())
@@ -418,7 +418,7 @@ public class ConsentService {
         }
 
         if (accountConsent.get().isExpired()) {
-            log.info("X-Request-ID: [{}], Consent-ID: [{}]. Create сonsent authorization with response failed: consent expired",
+            log.info("X-Request-ID: [{}], Consent-ID: [{}]. Create сonsent authorisation with response failed: consent expired",
                      requestProviderService.getRequestId(), consentId);
             return ResponseObject.<CreateConsentAuthorizationResponse>builder()
                        .fail(AIS_401, of(CONSENT_EXPIRED))
@@ -437,11 +437,11 @@ public class ConsentService {
         xs2aEventService.recordAisTppRequest(updatePsuData.getConsentId(), EventType.UPDATE_AIS_CONSENT_PSU_DATA_REQUEST_RECEIVED, updatePsuData);
 
         String consentId = updatePsuData.getConsentId();
-        String authorizationId = updatePsuData.getAuthorizationId();
+        String authorisationId = updatePsuData.getAuthorizationId();
 
-        if (!endpointAccessCheckerService.isEndpointAccessible(authorizationId, consentId)) {
-            log.info("X-Request-ID: [{}], Consent-ID: [{}], Authorization-ID [{}]. Update consent PSU data failed: update endpoint is blocked for current authorisation",
-                     requestProviderService.getRequestId(), consentId, authorizationId);
+        if (!endpointAccessCheckerService.isEndpointAccessible(authorisationId, consentId)) {
+            log.info("X-Request-ID: [{}], Consent-ID: [{}], Authorisation-ID [{}]. Update consent PSU data failed: update endpoint is blocked for current authorisation",
+                     requestProviderService.getRequestId(), consentId, authorisationId);
             return ResponseObject.<UpdateConsentPsuDataResponse>builder()
                        .fail(AIS_403, of(SERVICE_BLOCKED))
                        .build();
@@ -459,8 +459,8 @@ public class ConsentService {
 
         ValidationResult validationResult = updateConsentPsuDataValidator.validate(new CommonConsentObject(accountConsent.get()));
         if (validationResult.isNotValid()) {
-            log.info("X-Request-ID: [{}], Consent-ID: [{}], Authorization-ID [{}]. Update consent PSU data validation failed: {}",
-                     requestProviderService.getRequestId(), consentId, authorizationId, validationResult.getMessageError());
+            log.info("X-Request-ID: [{}], Consent-ID: [{}], Authorisation-ID [{}]. Update consent PSU data validation failed: {}",
+                     requestProviderService.getRequestId(), consentId, authorisationId, validationResult.getMessageError());
             return ResponseObject.<UpdateConsentPsuDataResponse>builder()
                        .fail(validationResult.getMessageError())
                        .build();

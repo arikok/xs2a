@@ -112,7 +112,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
 
         Optional<PisCommonPaymentResponse> pisCommonPaymentResponse = pisCommonPaymentService.getPisCommonPaymentById(request.getPaymentId());
         if (!pisCommonPaymentResponse.isPresent()) {
-            log.info("X-Request-ID: [{}], Payment-ID [{}]. UPDATE PIS CommonPayment PSU data failed. PisCommonPayment NOT FOUND by ID", requestProviderService.getRequestId(), request.getPaymentId());
+            log.info("X-Request-ID: [{}], Payment-ID [{}]. Update PIS CommonPayment PSU data failed. PisCommonPayment not found by id", requestProviderService.getRequestId(), request.getPaymentId());
             return ResponseObject.<Xs2aUpdatePisCommonPaymentPsuDataResponse>builder()
                        .fail(PIS_404, of(RESOURCE_UNKNOWN_404, PAYMENT_NOT_FOUND_MESSAGE))
                        .build();
@@ -120,7 +120,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
 
         ValidationResult validationResult = updatePisCommonPaymentPsuDataValidator.validate(new UpdatePisCommonPaymentPsuDataPO(pisCommonPaymentResponse.get(), request.getAuthorisationId()));
         if (validationResult.isNotValid()) {
-            log.warn("X-Request-ID: [{}], Payment-ID [{}]. Validation UPDATE PIS CommonPayment PSU data failed because given CommonPayment type and/or product or TppInfo aren't supported by the ASPSP profile: {}",
+            log.warn("X-Request-ID: [{}], Payment-ID [{}]. Validation Update PIS CommonPayment PSU data failed because given CommonPayment type and/or product or TppInfo aren't supported by the ASPSP profile: {}",
                      requestProviderService.getRequestId(), request.getPaymentId(), validationResult.getMessageError());
             return ResponseObject.<Xs2aUpdatePisCommonPaymentPsuDataResponse>builder()
                        .fail(validationResult.getMessageError())
@@ -152,7 +152,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
 
         Optional<PisCommonPaymentResponse> pisCommonPaymentResponse = pisCommonPaymentService.getPisCommonPaymentById(paymentId);
         if (!pisCommonPaymentResponse.isPresent()) {
-            log.info("X-Request-ID: [{}], Payment-ID [{}]. GET PAYMENT INITIATION AUTHORISATION failed. PisCommonPayment NOT FOUND by ID", requestProviderService.getRequestId(), paymentId);
+            log.info("X-Request-ID: [{}], Payment-ID [{}]. Get Payment authorisation failed. PisCommonPayment not found by id", requestProviderService.getRequestId(), paymentId);
             return ResponseObject.<Xs2aAuthorisationSubResources>builder()
                        .fail(PIS_404, of(RESOURCE_UNKNOWN_404, PAYMENT_NOT_FOUND_MESSAGE))
                        .build();
@@ -160,7 +160,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
 
         ValidationResult validationResult = getPaymentAuthorisationsValidator.validate(new CommonPaymentObject(pisCommonPaymentResponse.get()));
         if (validationResult.isNotValid()) {
-            log.warn("X-Request-ID: [{}], Payment-ID [{}]. Validation GET PAYMENT INITIATION AUTHORISATION failed because given CommonPayment type and/or product or TppInfo aren't supported by the ASPSP profile: {}",
+            log.warn("X-Request-ID: [{}], Payment-ID [{}]. Validation get payment initiation authorisation failed because given CommonPayment type and/or product or TppInfo aren't supported by the ASPSP profile: {}",
                      requestProviderService.getRequestId(), paymentId, validationResult.getMessageError());
             return ResponseObject.<Xs2aAuthorisationSubResources>builder()
                        .fail(validationResult.getMessageError())
@@ -171,7 +171,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
         return pisScaAuthorisationService.getAuthorisationSubResources(paymentId)
                    .map(resp -> ResponseObject.<Xs2aAuthorisationSubResources>builder().body(resp).build())
                    .orElseGet(() -> {
-                       log.warn("X-Request-ID: [{}], Payment-ID [{}]. GET PAYMENT INITIATION AUTHORISATION has failed. Authorisation NOT FOUND BY Payment ID.",
+                       log.warn("X-Request-ID: [{}], Payment-ID [{}]. Get payment initiation authorisation has failed. Authorisation not found by Payment id.",
                                 requestProviderService.getRequestId(), paymentId);
                        return ResponseObject.<Xs2aAuthorisationSubResources>builder()
                                   .fail(PIS_404, of(RESOURCE_UNKNOWN_404))
@@ -192,7 +192,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
 
         Optional<PisCommonPaymentResponse> pisCommonPaymentResponse = pisCommonPaymentService.getPisCommonPaymentById(paymentId);
         if (!pisCommonPaymentResponse.isPresent()) {
-            log.info("X-Request-ID: [{}], Payment-ID [{}]. GET SCA STATUS PAYMENT INITIATION AUTHORISATION failed. PisCommonPayment NOT FOUND by ID", requestProviderService.getRequestId(), paymentId);
+            log.info("X-Request-ID: [{}], Payment-ID [{}]. Get SCA status payment initiation authorisation failed. PisCommonPayment not found by id", requestProviderService.getRequestId(), paymentId);
             return ResponseObject.<ScaStatus>builder()
                        .fail(PIS_404, of(RESOURCE_UNKNOWN_404, PAYMENT_NOT_FOUND_MESSAGE))
                        .build();
@@ -200,7 +200,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
 
         ValidationResult validationResult = getPaymentAuthorisationScaStatusValidator.validate(new CommonPaymentObject(pisCommonPaymentResponse.get()));
         if (validationResult.isNotValid()) {
-            log.warn("X-Request-ID: [{}], Payment-ID [{}]. Validation GET SCA STATUS PAYMENT INITIATION AUTHORISATION failed because given payment's type and/or product or TppInfo aren't supported by the ASPSP profile: {}",
+            log.warn("X-Request-ID: [{}], Payment-ID [{}]. Validation get SCA status payment initiation authorisation failed because given payment's type and/or product or TppInfo aren't supported by the ASPSP profile: {}",
                      requestProviderService.getRequestId(), paymentId, validationResult.getMessageError());
             return ResponseObject.<ScaStatus>builder()
                        .fail(validationResult.getMessageError())
@@ -226,7 +226,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
 
         Optional<PisCommonPaymentResponse> pisCommonPaymentResponse = pisCommonPaymentService.getPisCommonPaymentById(paymentId);
         if (!pisCommonPaymentResponse.isPresent()) {
-            log.info("X-Request-ID: [{}], Payment-ID [{}]. CREATE PIS Authorisation failed. PisCommonPayment NOT FOUND by ID", requestProviderService.getRequestId(), paymentId);
+            log.info("X-Request-ID: [{}], Payment-ID [{}]. Create PIS Authorisation failed. PisCommonPayment not found by id", requestProviderService.getRequestId(), paymentId);
             return ResponseObject.<Xs2aCreatePisAuthorisationResponse>builder()
                        .fail(PIS_404, of(RESOURCE_UNKNOWN_404, PAYMENT_NOT_FOUND_MESSAGE))
                        .build();
@@ -234,7 +234,7 @@ public class PaymentAuthorisationServiceImpl implements PaymentAuthorisationServ
 
         ValidationResult validationResult = createPisAuthorisationValidator.validate(new CommonPaymentObject(pisCommonPaymentResponse.get()));
         if (validationResult.isNotValid()) {
-            log.warn("X-Request-ID: [{}], Payment-ID [{}]. Validation CREATE PIS Authorisation failed because given CommonPayment type and/or product or TppInfo aren't supported by the ASPSP profile: {}",
+            log.warn("X-Request-ID: [{}], Payment-ID [{}]. Validation create PIS Authorisation failed because given CommonPayment type and/or product or TppInfo aren't supported by the ASPSP profile: {}",
                      requestProviderService.getRequestId(), paymentId, validationResult.getMessageError());
             return ResponseObject.<Xs2aCreatePisAuthorisationResponse>builder()
                        .fail(validationResult.getMessageError())

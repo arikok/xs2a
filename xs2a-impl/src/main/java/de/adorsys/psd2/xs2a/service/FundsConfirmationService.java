@@ -116,7 +116,7 @@ public class FundsConfirmationService {
         AccountReferenceSelector selector = accountReference.getUsedAccountReferenceSelector();
 
         if (selector == null) {
-            log.info("X-Request-ID: [{}]. Check availability of funds failed, because when validate account reference No account identifier found in the request [{}].",
+            log.info("X-Request-ID: [{}]. Check availability of funds failed, because while validate account reference no account identifier found in the request [{}].",
                      requestProviderService.getRequestId(), accountReference);
             return new PiisConsentValidationResult(ErrorHolder.builder(FORMAT_ERROR).errorType(PIIS_400).build());
         }

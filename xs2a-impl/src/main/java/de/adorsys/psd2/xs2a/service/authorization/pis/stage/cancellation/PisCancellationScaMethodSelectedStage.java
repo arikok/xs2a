@@ -72,7 +72,7 @@ public class PisCancellationScaMethodSelectedStage extends PisScaStage<Xs2aUpdat
         String paymentProduct = pisAuthorisationResponse.getPaymentProduct();
         SpiPayment payment = mapToSpiPayment(pisAuthorisationResponse, paymentType, paymentProduct);
         PsuIdData psuData = extractPsuIdData(request, true);
-        String authenticationId = request.getAuthorisationId();
+        String authorisationId = request.getAuthorisationId();
         String paymentId = request.getPaymentId();
 
         AspspConsentData aspspConsentData = pisAspspDataService.getAspspConsentData(request.getPaymentId());
@@ -85,8 +85,8 @@ public class PisCancellationScaMethodSelectedStage extends PisScaStage<Xs2aUpdat
 
         if (spiResponse.hasError()) {
             ErrorHolder errorHolder = spiErrorMapper.mapToErrorHolder(spiResponse, ServiceType.PIS);
-            log.warn("X-Request-ID: [{}], Payment-ID [{}], Authorisation-ID [{}]. PIS_CANCELLATION_EMBEDDED_SCAMETHODSELECTED stage. Verify SCA authorisation and cancel Payment has failed. Error msg: {}.",
-                     requestProviderService.getRequestId(), paymentId, authenticationId, errorHolder);
+            log.warn("X-Request-ID: [{}], Payment-ID [{}], Authorisation-ID [{}]. PIS_CANCELLATION_EMBEDDED_SCAMETHODSELECTED stage. Verify SCA authorisation and cancel Payment has failed. Error msg: [{}]",
+                     requestProviderService.getRequestId(), paymentId, authorisationId, errorHolder);
             return new Xs2aUpdatePisCommonPaymentPsuDataResponse(spiErrorMapper.mapToErrorHolder(spiResponse, ServiceType.PIS), request.getPaymentId(), request.getAuthorisationId(), psuData);
         }
 
